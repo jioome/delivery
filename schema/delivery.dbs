@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="delivery" id="Project-2327" database="MySql" >
+	<schema name="delivery" >
+		<table name="menu" prior="tbl" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="name" type="varchar" length="64" jt="12" />
+			<column name="description" type="varchar" length="64" jt="12" />
+			<column name="price" type="int" jt="4" />
+			<column name="restaurant_id" type="bigint" jt="-5" />
+			<index name="pk_menu_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_menu_restaurant" to_schema="delivery" to_table="restaurant" delete_action="cascade" >
+				<fk_column name="restaurant_id" pk="id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="order" prior="tbl" >
+			<column name="order_id" type="bigint" jt="-5" mandatory="y" />
+			<column name="menu_id" type="bigint" jt="-5" />
+			<column name="orderer_id" type="bigint" jt="-5" />
+			<column name="status" type="int" length="1" jt="4" />
+			<index name="pk_tbl_order_id" unique="PRIMARY_KEY" >
+				<column name="order_id" />
+			</index>
+			<index name="unq_order_menu_id" unique="UNIQUE_KEY" >
+				<column name="menu_id" />
+			</index>
+			<fk name="fk_order_menu" to_schema="delivery" to_table="menu" delete_action="cascade" >
+				<fk_column name="menu_id" pk="id" />
+			</fk>
+			<fk name="fk_order_user" to_schema="delivery" to_table="user" delete_action="cascade" >
+				<fk_column name="orderer_id" pk="id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="restaurant" prior="res" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="name" type="varchar" length="64" jt="12" />
+			<column name="address" type="varchar" length="64" jt="12" />
+			<column name="call_number" type="varchar" length="64" jt="12" />
+			<column name="owner_id" type="bigint" jt="-5" />
+			<index name="pk_restaurant_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_restaurant_user" to_schema="delivery" to_table="user" delete_action="cascade" >
+				<fk_column name="owner_id" pk="id" />
+			</fk>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+		<table name="user" prior="tbl" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="address" type="varchar" length="64" jt="12" />
+			<column name="phone_number" type="varchar" length="64" jt="12" />
+			<column name="name" type="varchar" length="64" jt="12" />
+			<column name="type" type="int" jt="4" />
+			<column name="user_id" type="varchar" length="64" jt="12" />
+			<index name="pk_tbl_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[engine=InnoDB]]></options>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-19c1" show_column_type="y" show_relation="columns" >
+		<entity schema="delivery" name="menu" color="C1D8EE" x="528" y="320" />
+		<entity schema="delivery" name="order" color="C1D8EE" x="80" y="336" />
+		<entity schema="delivery" name="restaurant" color="C1D8EE" x="512" y="64" />
+		<entity schema="delivery" name="user" color="C1D8EE" x="48" y="48" />
+		<form name="Report" id="Report-cb4" template="Page" css="container-fluid" view="frame" first="y" >
+			<body name="Body" template="Grid" pos="0,0,0,0,f,f" layout="{{-2},{-2}}" scroll="n" html="n" />
+		</form>
+	</layout>
+</project>
