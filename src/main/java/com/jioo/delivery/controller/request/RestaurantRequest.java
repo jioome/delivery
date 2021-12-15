@@ -44,10 +44,10 @@ public class RestaurantRequest {
     }
 
     public long getOwner_id() {
-        return owner_id;
+        return ownerId;
     }
 
-    public void setOwner_id(long owner_id) {
-        this.owner_id = owner_id;
+    public void setOwner_id(Long ownerId) {
+        this.ownerId = ownerId;
     }
 }

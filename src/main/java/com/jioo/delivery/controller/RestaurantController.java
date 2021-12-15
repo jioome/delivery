@@ -25,14 +25,15 @@ public class RestaurantController {
 
 
     @GetMapping("/restaurant/{id}")
-    public String readRestaurant(@PathVariable Long id){
-        restaurantService.read(id);
-        return "read";
+    public RestaurantResponse readRestaurant(@PathVariable Long id) throws Exception {
+        final Restaurant restaurant = restaurantService.read(id);
+
+        return new RestaurantResponse(restaurant);
     }
 
     @PutMapping("/restaurant/{id}")
     public String updateRestaurant(@PathVariable Long id){
-        restaurantService.read(id);
+//        restaurantService.update(id);
         return "read";
     }
 
