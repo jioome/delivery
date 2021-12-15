@@ -1,5 +1,6 @@
 package com.jioo.delivery.controller;
 
+import com.jioo.delivery.controller.request.RestaurantRequest;
 import com.jioo.delivery.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +15,9 @@ public class RestaurantController {
 //    2. Request Body로 전달받기
 //    3. Path Variable 로 전달받기
 
-    @RequestMapping("/restaurant/{name}/{address}")
-    public String createRestaurant(@PathVariable String name, @PathVariable String address){
-        restaurantService.create(name,address);
+    @PostMapping("/restaurant")
+    public String createRestaurant(@RequestBody RestaurantRequest restaurantRequest){
+        restaurantService.create(restaurantRequest);
         return "hello";
     }
 
@@ -27,7 +28,7 @@ public class RestaurantController {
         return "read";
     }
 
-    @PostMapping("/restaurant/{id}")
+    @PutMapping("/restaurant/{id}")
     public String updateRestaurant(@PathVariable Long id){
         restaurantService.read(id);
         return "read";
