@@ -1,6 +1,8 @@
 package com.jioo.delivery.controller;
 
 import com.jioo.delivery.controller.request.RestaurantRequest;
+import com.jioo.delivery.controller.response.RestaurantResponse;
+import com.jioo.delivery.domain.Restaurant;
 import com.jioo.delivery.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +18,9 @@ public class RestaurantController {
 //    3. Path Variable 로 전달받기
 
     @PostMapping("/restaurant")
-    public String createRestaurant(@RequestBody RestaurantRequest restaurantRequest){
-        restaurantService.create(restaurantRequest);
-        return "hello";
+    public RestaurantResponse createRestaurant(@RequestBody RestaurantRequest restaurantRequest){
+        final Restaurant restaurant = restaurantService.create(restaurantRequest);
+        return new RestaurantResponse(restaurant);
     }
 
 
@@ -39,7 +41,4 @@ public class RestaurantController {
         restaurantService.delete(id);
         return "delete";
     }
-
-
-
 }

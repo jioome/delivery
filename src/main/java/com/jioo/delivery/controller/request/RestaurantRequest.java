@@ -2,32 +2,21 @@ package com.jioo.delivery.controller.request;
 //객체 만들기
 
 public class RestaurantRequest {
-    private long id;
     private String name;
     private String address;
-    private String call_number;
-    private long owner_id;
+    private String callNumber;
+    private Long ownerId;
 
     //디폴트 생성자를 명시적으로 만든다
     public RestaurantRequest() {
 
     }
 
-    public RestaurantRequest(long id, String name, String address, String call_number, long owner_id) {
-        this.id = id;
+    public RestaurantRequest(String name, String address, String call_number, Long ownerId) {
         this.name = name;
         this.address = address;
-        this.call_number = call_number;
-        this.owner_id = owner_id;
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        this.callNumber = call_number;
+        this.ownerId = ownerId;
     }
 
     public String getName() {
@@ -46,12 +35,12 @@ public class RestaurantRequest {
         this.address = address;
     }
 
-    public String getCall_number() {
-        return call_number;
+    public String getCallNumber() {
+        return callNumber;
     }
 
-    public void setCall_number(String call_number) {
-        this.call_number = call_number;
+    public void setCallNumber(String callNumber) {
+        this.callNumber = callNumber;
     }
 
     public long getOwner_id() {
