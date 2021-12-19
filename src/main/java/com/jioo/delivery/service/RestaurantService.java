@@ -20,25 +20,40 @@ public class RestaurantService {
         return restaurant;
     }
 
+
+    public List<Restaurant> getAllRestaurants(){
+        return restaurants;
+    }
+
     public Restaurant read(Long id) throws Exception {
         // 자바 언어 버전 별 변천사
+        // stream
         final Restaurant foundRestaurant = restaurants
                 .stream()
                 .filter(restaurant -> Objects.equals(restaurant.getId(), id))
                 .findFirst()
+                // 못찾을 경우
                 .orElseThrow(() -> new Exception("없어!"));
 
         return foundRestaurant;
     }
 
 
-    public void update(Long id, String name, String address) {
-        System.out.println(id);
-        System.out.println(name);
-        System.out.println(address);
+
+    public void update(Long id, RestaurantRequest restaurantParameter) throws Exception {
+
+        final Restaurant updateRestaurant = restaurants
+                .stream()
+                .filter(restaurant -> Objects.equals(restaurant.getId(), id))
+                .findFirst()
+                // 못찾을 경우
+                .orElseThrow(() -> new Exception("없어!"));
+//              .setName(restaurantParameter.getName());
+
+
     }
 
     public void delete(Long id) {
-        System.out.println(id);
+        restaurants.removeIf(restaurant -> Objects.equals(restaurant.getId(), id));
     }
 }

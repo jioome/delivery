@@ -43,11 +43,11 @@ public class RestaurantRequest {
         this.callNumber = callNumber;
     }
 
-    public long getOwner_id() {
+    public Long getOwnerId() {
         return ownerId;
     }
 
-    public void setOwner_id(Long ownerId) {
+    public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
 }

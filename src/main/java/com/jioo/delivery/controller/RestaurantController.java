@@ -7,6 +7,8 @@ import com.jioo.delivery.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class RestaurantController {
@@ -23,7 +25,6 @@ public class RestaurantController {
         return new RestaurantResponse(restaurant);
     }
 
-
     @GetMapping("/restaurant/{id}")
     public RestaurantResponse readRestaurant(@PathVariable Long id) throws Exception {
         final Restaurant restaurant = restaurantService.read(id);
@@ -31,15 +32,21 @@ public class RestaurantController {
         return new RestaurantResponse(restaurant);
     }
 
+    @GetMapping("/restaurant")
+    public List<Restaurant>  getAllRestaurants() {
+        return restaurantService.getAllRestaurants();
+    }
+
     @PutMapping("/restaurant/{id}")
-    public String updateRestaurant(@PathVariable Long id){
-//        restaurantService.update(id);
-        return "read";
+    public void updateRestaurant(@PathVariable Long id,@PathVariable RestaurantRequest restaurantRequest) throws Exception {
+
+//        return restaurantService.update(id,restaurantRequest);
+            return ;
     }
 
     @DeleteMapping("/restaurant/{id}")
-    public String deleteRestaurant(@PathVariable Long id){
+    public void deleteRestaurant(@PathVariable Long id){
         restaurantService.delete(id);
-        return "delete";
+
     }
 }
