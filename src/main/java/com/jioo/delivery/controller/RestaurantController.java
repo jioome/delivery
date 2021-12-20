@@ -38,10 +38,10 @@ public class RestaurantController {
     }
 
     @PutMapping("/restaurant/{id}")
-    public void updateRestaurant(@PathVariable Long id,@PathVariable RestaurantRequest restaurantRequest) throws Exception {
+    public RestaurantResponse updateRestaurant(@PathVariable Long id, @RequestBody RestaurantRequest restaurantRequest) throws Exception {
 
-//        return restaurantService.update(id,restaurantRequest);
-            return ;
+        final Restaurant restaurant = restaurantService.update(id,restaurantRequest);
+        return new RestaurantResponse(restaurant);
     }
 
     @DeleteMapping("/restaurant/{id}")
