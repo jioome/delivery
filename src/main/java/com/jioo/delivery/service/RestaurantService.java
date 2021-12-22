@@ -40,7 +40,7 @@ public class RestaurantService {
 
 
 
-    public void update(Long id, RestaurantRequest restaurantParameter) throws Exception {
+    public Restaurant update(Long id, RestaurantRequest restaurantParameter) throws Exception {
 
         final Restaurant updateRestaurant = restaurants
                 .stream()
@@ -48,9 +48,10 @@ public class RestaurantService {
                 .findFirst()
                 // 못찾을 경우
                 .orElseThrow(() -> new Exception("없어!"));
-//              .setName(restaurantParameter.getName());
+                updateRestaurant.setName(restaurantParameter.getName());
+                updateRestaurant.setAddress(restaurantParameter.getAddress());
 
-
+        return updateRestaurant;
     }
 
     public void delete(Long id) {
