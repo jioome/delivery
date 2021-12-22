@@ -2,9 +2,19 @@ package com.jioo.delivery.service;
 
 import com.jioo.delivery.controller.request.RestaurantRequest;
 import com.jioo.delivery.domain.Restaurant;
+import com.jioo.delivery.domain.User;
+import com.jioo.delivery.repository.RestaurantRepository;
+import com.jioo.delivery.repository.UserRepository;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -12,44 +22,44 @@ import org.springframework.stereotype.Service;
 @Service
 public class RestaurantService {
 
+    @Autowired
+    private RestaurantRepository restaurantRepository;
+
+    @Autowired
+    private UserService userService;
+
+    // Repository
     private final List<Restaurant> restaurants = new ArrayList<>();
 
     public Restaurant create(RestaurantRequest restaurantParameter) {
-        final Restaurant restaurant = new Restaurant(restaurants.size()+1L, restaurantParameter.getName(), restaurantParameter.getAddress());
-        restaurants.add(restaurant);
-        return restaurant;
+        final User user = userService.read(restaurantParameter.getOwnerId());
+        final Restaurant restaurant = new Restaurant(restaurantParameter.getAddress(), restaurantParameter.getName(), restaurantParameter.getCallNumber(), user);
+        return restaurantRepository.save(restaurant);
     }
 
 
-    public List<Restaurant> getAllRestaurants(){
+    public List<Restaurant> getAllRestaurants() {
         return restaurants;
     }
 
     public Restaurant read(Long id) throws Exception {
         // 자바 언어 버전 별 변천사
-        // stream
-        final Restaurant foundRestaurant = restaurants
-                .stream()
-                .filter(restaurant -> Objects.equals(restaurant.getId(), id))
-                .findFirst()
-                // 못찾을 경우
-                .orElseThrow(() -> new Exception("없어!"));
+        // stream - 함수형 프로그래밍 1. 불변성
+        // 3. lazy evaluation
 
-        return foundRestaurant;
+        return restaurantRepository.findById(id).orElseThrow(NullPointerException::new);
     }
 
 
-
     public Restaurant update(Long id, RestaurantRequest restaurantParameter) throws Exception {
-
         final Restaurant updateRestaurant = restaurants
                 .stream()
                 .filter(restaurant -> Objects.equals(restaurant.getId(), id))
                 .findFirst()
                 // 못찾을 경우
                 .orElseThrow(() -> new Exception("없어!"));
-                updateRestaurant.setName(restaurantParameter.getName());
-                updateRestaurant.setAddress(restaurantParameter.getAddress());
+        updateRestaurant.setName(restaurantParameter.getName());
+        updateRestaurant.setAddress(restaurantParameter.getAddress());
 
         return updateRestaurant;
     }

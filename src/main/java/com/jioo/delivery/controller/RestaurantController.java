@@ -4,6 +4,8 @@ import com.jioo.delivery.controller.request.RestaurantRequest;
 import com.jioo.delivery.controller.response.RestaurantResponse;
 import com.jioo.delivery.domain.Restaurant;
 import com.jioo.delivery.service.RestaurantService;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +22,7 @@ public class RestaurantController {
 //    3. Path Variable 로 전달받기
 
     @PostMapping("/restaurant")
-    public RestaurantResponse createRestaurant(@RequestBody RestaurantRequest restaurantRequest){
+    public RestaurantResponse createRestaurant(@RequestBody RestaurantRequest restaurantRequest) {
         final Restaurant restaurant = restaurantService.create(restaurantRequest);
         return new RestaurantResponse(restaurant);
     }
@@ -28,24 +30,23 @@ public class RestaurantController {
     @GetMapping("/restaurant/{id}")
     public RestaurantResponse readRestaurant(@PathVariable Long id) throws Exception {
         final Restaurant restaurant = restaurantService.read(id);
-
         return new RestaurantResponse(restaurant);
     }
 
     @GetMapping("/restaurant")
-    public List<Restaurant>  getAllRestaurants() {
+    public List<Restaurant> getAllRestaurants() {
         return restaurantService.getAllRestaurants();
     }
 
     @PutMapping("/restaurant/{id}")
     public RestaurantResponse updateRestaurant(@PathVariable Long id, @RequestBody RestaurantRequest restaurantRequest) throws Exception {
 
-        final Restaurant restaurant = restaurantService.update(id,restaurantRequest);
+        final Restaurant restaurant = restaurantService.update(id, restaurantRequest);
         return new RestaurantResponse(restaurant);
     }
 
     @DeleteMapping("/restaurant/{id}")
-    public void deleteRestaurant(@PathVariable Long id){
+    public void deleteRestaurant(@PathVariable Long id) {
         restaurantService.delete(id);
 
     }
