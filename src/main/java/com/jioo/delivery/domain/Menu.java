@@ -2,6 +2,7 @@ package com.jioo.delivery.domain;
 
 import javax.persistence.*;
 
+@Entity
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,20 +12,21 @@ public class Menu {
     private Integer price;
 
     @ManyToOne
-    @Column(name = "restaurant_id")
+    @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-
-    public Menu(){
+    public Menu() {
 
     }
+
     public Menu(Long id, String name, String description, Integer price, Restaurant restaurant) {
-        this.id=id;
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.restaurant = restaurant;
     }
+
     public Menu(String name, String description, Integer price, Restaurant restaurant) {
         this.name = name;
         this.description = description;
