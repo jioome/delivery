@@ -1,7 +1,7 @@
 CREATE SCHEMA delivery;
 
 CREATE TABLE `user` (
-	id                   bigint  NOT NULL    PRIMARY KEY,
+	id                   bigint  NOT NULL    PRIMARY KEY AUTO_INCREMENT,
 	address              varchar(64)      ,
 	phone_number         varchar(64)      ,
 	name                 varchar(64)      ,
@@ -10,7 +10,7 @@ CREATE TABLE `user` (
  ) engine=InnoDB;
 
 CREATE TABLE restaurant (
-	id                   bigint  NOT NULL    PRIMARY KEY,
+	id                   bigint  NOT NULL    PRIMARY KEY AUTO_INCREMENT,
 	name                 varchar(64)      ,
 	address              varchar(64)      ,
 	call_number          varchar(64)      ,
@@ -18,7 +18,7 @@ CREATE TABLE restaurant (
  ) engine=InnoDB;
 
 CREATE TABLE menu (
-	id                   bigint  NOT NULL    PRIMARY KEY,
+	id                   bigint  NOT NULL    PRIMARY KEY AUTO_INCREMENT,
 	name                 varchar(64)      ,
 	description          varchar(64)      ,
 	price                int      ,
@@ -26,7 +26,7 @@ CREATE TABLE menu (
  ) engine=InnoDB;
 
 CREATE TABLE `order` (
-	order_id             bigint  NOT NULL    PRIMARY KEY,
+	order_id             bigint  NOT NULL    PRIMARY KEY AUTO_INCREMENT,
 	menu_id              bigint      ,
 	orderer_id           bigint      ,
 	`status`             int      ,
