@@ -7,12 +7,7 @@ import com.jioo.delivery.domain.Restaurant;
 import com.jioo.delivery.domain.User;
 import com.jioo.delivery.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -22,12 +17,28 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/user")
-    public User createRestaurant(@RequestBody UserRequest userRequest) {
+    public User createUser(@RequestBody UserRequest userRequest) {
         return userService.create(userRequest);
     }
 
     @GetMapping("/user/{id}")
-    public User readRestaurant(@PathVariable Long id) {
+    public User readUser(@PathVariable Long id) {
         return userService.read(id);
     }
+
+//    @PutMapping("/user/{id}")
+//    public User updateUser(@PathVariable Long id, @RequestBody UserRequest userRequest) throws Exception {
+//
+//        final User user = userService.update(id, UserRequest);
+//        return new User(user);
+//    }
+
+//    @DeleteMapping("/user/{id}")
+//    public void deleteUser(@PathVariable Long id) {
+//        userService.delete(id);
+//
+//    }
+
+
+
 }

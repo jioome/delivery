@@ -17,6 +17,8 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+
 
 //비즈니스 로직을 수행하는 Class라는 것을 나타내는 용도
 @Service
@@ -39,7 +41,7 @@ public class RestaurantService {
 
 
     public List<Restaurant> getAllRestaurants() {
-        return restaurants;
+        return restaurantRepository.findAll();
     }
 
     public Restaurant read(Long id) throws Exception {
@@ -52,19 +54,23 @@ public class RestaurantService {
 
 
     public Restaurant update(Long id, RestaurantRequest restaurantParameter) throws Exception {
-        final Restaurant updateRestaurant = restaurants
-                .stream()
-                .filter(restaurant -> Objects.equals(restaurant.getId(), id))
-                .findFirst()
-                // 못찾을 경우
-                .orElseThrow(() -> new Exception("없어!"));
+        Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(id);
+        if (optionalRestaurant.isEmpty()){
+            throw new EntityNotFoundException(
+                    "Member not present in the database"
+            );
+        }
+        Restaurant updateRestaurant = optionalRestaurant.get();
         updateRestaurant.setName(restaurantParameter.getName());
         updateRestaurant.setAddress(restaurantParameter.getAddress());
+        updateRestaurant.setCallNumber(restaurantParameter.getCallNumber());
 
-        return updateRestaurant;
+
+        return restaurantRepository.save(updateRestaurant);
+
     }
 
     public void delete(Long id) {
-        restaurants.removeIf(restaurant -> Objects.equals(restaurant.getId(), id));
+         restaurantRepository.deleteById(id);
     }
 }
