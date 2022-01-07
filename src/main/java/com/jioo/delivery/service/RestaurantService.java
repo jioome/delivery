@@ -46,7 +46,7 @@ public class RestaurantService {
 
     public Restaurant read(Long id) throws Exception {
         // 자바 언어 버전 별 변천사
-        // stream - 함수형 프로그래밍 1. 불변성
+        // stream - 함수형 프로그래밍 1.  불변성
         // 3. lazy evaluation
 
         return restaurantRepository.findById(id).orElseThrow(NullPointerException::new);
