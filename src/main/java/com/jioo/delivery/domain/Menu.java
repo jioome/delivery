@@ -15,17 +15,18 @@ public class Menu {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-
-    public Menu(){
+    public Menu() {
 
     }
+
     public Menu(Long id, String name, String description, Integer price, Restaurant restaurant) {
-        this.id=id;
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.restaurant = restaurant;
     }
+
     public Menu(String name, String description, Integer price, Restaurant restaurant) {
         this.name = name;
         this.description = description;
