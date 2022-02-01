@@ -14,5 +14,9 @@ public class Order {
     @Column(name = "orderer_id")
     private Long ordererId;
 
+//    @Column(name = "status")
+//    @Convert(converter = OrderType.Converter.class)
+//    private OrderType status;
+
 
 }
