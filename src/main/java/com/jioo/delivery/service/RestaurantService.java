@@ -4,16 +4,9 @@ import com.jioo.delivery.controller.request.RestaurantRequest;
 import com.jioo.delivery.domain.Restaurant;
 import com.jioo.delivery.domain.User;
 import com.jioo.delivery.repository.RestaurantRepository;
-import com.jioo.delivery.repository.UserRepository;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +48,7 @@ public class RestaurantService {
 
     public Restaurant update(Long id, RestaurantRequest restaurantParameter) throws Exception {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(id);
-        if (optionalRestaurant.isEmpty()){
+        if (optionalRestaurant.isEmpty()) {
             throw new EntityNotFoundException(
                     "Member not present in the database"
             );
@@ -71,6 +64,6 @@ public class RestaurantService {
     }
 
     public void delete(Long id) {
-         restaurantRepository.deleteById(id);
+        restaurantRepository.deleteById(id);
     }
 }
