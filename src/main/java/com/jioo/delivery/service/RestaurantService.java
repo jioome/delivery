@@ -2,7 +2,7 @@ package com.jioo.delivery.service;
 
 import com.jioo.delivery.controller.request.RestaurantRequest;
 import com.jioo.delivery.domain.Restaurant;
-import com.jioo.delivery.domain.User;
+import com.jioo.delivery.oauth.User;
 import com.jioo.delivery.repository.RestaurantRepository;
 import java.util.ArrayList;
 import java.util.List;

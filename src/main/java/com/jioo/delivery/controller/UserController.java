@@ -1,10 +1,7 @@
 package com.jioo.delivery.controller;
 
-import com.jioo.delivery.controller.request.RestaurantRequest;
 import com.jioo.delivery.controller.request.UserRequest;
-import com.jioo.delivery.controller.response.RestaurantResponse;
-import com.jioo.delivery.domain.Restaurant;
-import com.jioo.delivery.domain.User;
+import com.jioo.delivery.oauth.User;
 import com.jioo.delivery.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +14,9 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/user")
-    public User createUser(@RequestBody UserRequest userRequest) {
-        return userService.create(userRequest);
-    }
+//    public User createUser(@RequestBody UserRequest userRequest) {
+//        return userService.create(userRequest);
+//    }
 
     @GetMapping("/user/{id}")
     public User readUser(@PathVariable Long id) {
