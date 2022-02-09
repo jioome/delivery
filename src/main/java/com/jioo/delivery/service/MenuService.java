@@ -3,7 +3,6 @@ package com.jioo.delivery.service;
 import com.jioo.delivery.controller.request.MenuRequest;
 import com.jioo.delivery.domain.Menu;
 import com.jioo.delivery.domain.Restaurant;
-import com.jioo.delivery.domain.User;
 import com.jioo.delivery.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

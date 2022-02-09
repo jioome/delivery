@@ -1,11 +1,8 @@
 package com.jioo.delivery.controller;
 
 import com.jioo.delivery.controller.request.MenuRequest;
-import com.jioo.delivery.controller.request.UserRequest;
 import com.jioo.delivery.domain.Menu;
-import com.jioo.delivery.domain.User;
 import com.jioo.delivery.service.MenuService;
-import com.jioo.delivery.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,32 +1,40 @@
 package com.jioo.delivery.controller.request;
 //객체 만들기
 
+import com.jioo.delivery.oauth.Role;
+
 public class UserRequest {
-    private String userId;
+    private Long id;
     private String name;
+    private String email;
+    private String picture;
+    private Role role;
     private String address;
     private String phoneNumber;
-    private int type;
+
+
 
     //디폴트 생성자를 명시적으로 만든다
     public UserRequest() {
 
     }
 
-    public UserRequest(String userId, String name, String address, String phoneNumber, int type) {
-        this.userId = userId;
+    public UserRequest(Long id, String name, String email, String picture, Role role, String address, String phoneNumber) {
+        this.id = id;
         this.name = name;
+        this.email = email;
+        this.picture = picture;
+        this.role = role;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.type = type;
     }
 
-    public String getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -35,6 +43,30 @@ public class UserRequest {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getAddress() {
@@ -51,13 +83,5 @@ public class UserRequest {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 }

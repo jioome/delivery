@@ -2,6 +2,8 @@ package com.jioo.delivery.domain;
 
 // ORM -> 자바 진영의 ORM 표준! Java Persistent API 패러다임 불일치
 
+import com.jioo.delivery.oauth.User;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
