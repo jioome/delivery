@@ -21,7 +21,6 @@ public class OAuthAttributes {
         this.name = name;
         this.email = email;
         this.picture = picture;
-        System.out.println(name);
     }
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes){
@@ -46,6 +45,7 @@ public class OAuthAttributes {
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
+
     }
 
     // ofGoogle, ofNaver 로직 생략...
