@@ -14,9 +14,9 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/user")
-//    public User createUser(@RequestBody UserRequest userRequest) {
-//        return userService.create(userRequest);
-//    }
+    public User createUser(@RequestBody UserRequest userRequest) {
+        return userService.create(userRequest);
+    }
 
     @GetMapping("/user/{id}")
     public User readUser(@PathVariable Long id) {
