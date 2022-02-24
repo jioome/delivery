@@ -1,5 +1,9 @@
-package com.jioo.delivery.oauth;
+package com.jioo.delivery.oauth.service;
 
+import com.jioo.delivery.oauth.OAuthAttributes;
+import com.jioo.delivery.oauth.SessionUser;
+import com.jioo.delivery.oauth.User;
+import com.jioo.delivery.oauth.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
