@@ -45,6 +45,7 @@ public class OAuthAttributes {
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
+
     }
 
     // ofGoogle, ofNaver 로직 생략...
@@ -53,7 +54,6 @@ public class OAuthAttributes {
         return User.builder()
                 .name(name)
                 .email(email)
-                .picture(picture)
                 .role(Role.GUEST) // 기본 권한 GUEST
                 .build();
     }

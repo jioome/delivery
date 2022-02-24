@@ -7,7 +7,6 @@ public class UserRequest {
     private Long id;
     private String name;
     private String email;
-    private String picture;
     private Role role;
     private String address;
     private String phoneNumber;
@@ -19,11 +18,10 @@ public class UserRequest {
 
     }
 
-    public UserRequest(Long id, String name, String email, String picture, Role role, String address, String phoneNumber) {
+    public UserRequest(Long id, String name, String email, Role role, String address, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.picture = picture;
         this.role = role;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -53,13 +51,6 @@ public class UserRequest {
         this.email = email;
     }
 
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
 
     public Role getRole() {
         return role;
