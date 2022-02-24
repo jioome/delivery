@@ -8,6 +8,7 @@ public class UserRequest {
     private String name;
     private String email;
     private Role role;
+    private int userId;
     private String picture;
 
 
@@ -16,11 +17,12 @@ public class UserRequest {
 
     }
 
-    public UserRequest(int id, String name, String email, Role role, String picture) {
+    public UserRequest(int id, String name, String email, Role role, String picture,int userId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.role = role;
+        this.userId = userId;
         this.picture = picture;
     }
 
@@ -63,5 +65,13 @@ public class UserRequest {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

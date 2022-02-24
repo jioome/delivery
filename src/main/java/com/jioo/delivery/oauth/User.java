@@ -15,7 +15,6 @@ public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     private int id;
 
     @Column(nullable = false)
@@ -24,8 +23,10 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String email ;
 
+    @Column(name = "user_id")
+    private int userId ;
 
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role = Role.USER;
 
@@ -34,16 +35,17 @@ public class User extends BaseTimeEntity {
 
 
     @Builder
-    public User(int id,String name, String email, String picture ,Role role){
+    public User(int id,String name, String email, String picture ,Role role,  int userId){
         this.id = id;
         this.name = name;
         this.email = email;
+        this.userId = userId;
         this.picture = picture;
         this.role = role;
     }
 
     @Builder
-    public User(int id, String name, String email, String picture) {
+    public User(int id, String name, String email, String picture,int userId) {
         super();
     }
 

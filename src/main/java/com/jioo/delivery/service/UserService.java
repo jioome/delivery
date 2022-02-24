@@ -20,7 +20,7 @@ public class UserService {
 
 // create 없이 delete update read 만 있어도 됨
     public User create(UserRequest userParameter) {
-        final User user = new User( userParameter.getId(),userParameter.getName(),userParameter.getEmail(),userParameter.getPicture(),userParameter.getRole());
+        final User user = new User( userParameter.getId(),userParameter.getName(),userParameter.getEmail(),userParameter.getPicture(),userParameter.getRole(),userParameter.getUserId());
         return userRepository.save(user);
     }
 

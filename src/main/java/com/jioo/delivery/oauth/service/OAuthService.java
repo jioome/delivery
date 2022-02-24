@@ -51,7 +51,9 @@ public class OAuthService {
 
         return oAuthToken.getAccessToken();
     }
-
+    public boolean checkEmailDuplicate(String email){
+        return userRepository.existsByEmail(email);
+    }
     public HashMap<String, Object> getKakaoUserInfo(String access_Token) {
 
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
@@ -84,30 +86,23 @@ public class OAuthService {
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
-            int id = element.getAsJsonObject().get("id").getAsInt();
+            int userId = element.getAsJsonObject().get("id").getAsInt();
             String name = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
             String picture = properties.getAsJsonObject().get("profile_image").getAsString();
 
-            userInfo.put("Id", id);
-            userInfo.put("name", name);
-            userInfo.put("email", email);
-            userInfo.put("picture", picture);
-
-//           DB 저장
-
+            //  DB 저장
             User user = new User();
-            user.setId(id);
+            user.setUserId(userId);
             user.setEmail(email);
             user.setName(name);
             user.setPicture(picture);
-            userRepository.save(user);
 
+            // 중복체크
+            if(!checkEmailDuplicate(email)){
+                userRepository.save(user);
+            }
 
-            System.out.println(id);
-            System.out.println(name);
-            System.out.println(email);
-            System.out.println(picture);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
