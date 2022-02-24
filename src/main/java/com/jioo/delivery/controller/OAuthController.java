@@ -29,9 +29,8 @@ public class OAuthController {
 
     @RequestMapping("/oauth2/code/kakao")
     public String kakaoLogin(@RequestParam String code, HttpSession session){
-        System.out.println("###code### " + code);
         String access_Token = kakao.getKakaoAccessToken(code);
-        System.out.println("###access_Token#### " + access_Token);
+//        System.out.println("###access_Token#### " + access_Token);
         HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
         System.out.println("login Controller : " + userInfo);
 
