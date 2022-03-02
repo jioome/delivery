@@ -1,11 +1,13 @@
 package com.jioo.delivery.oauth;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Getter
 @NoArgsConstructor
@@ -13,38 +15,39 @@ public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long id;
+    private int id;
 
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private String email;
+    private String email ;
 
+    @Column(name = "user_id")
+    private int userId ;
 
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;
+    private Role role = Role.USER;
 
-    @Column(name = "phone_number")
-    private String phoneNumber;
+    private String picture;
 
-    private String address;
 
 
     @Builder
-    public User(Long id,String name, String email,  Role role,String phoneNumber,String address){
+    public User(int id,String name, String email, String picture ,Role role,  int userId){
         this.id = id;
         this.name = name;
         this.email = email;
-
+        this.userId = userId;
+        this.picture = picture;
         this.role = role;
-
-        this.phoneNumber = phoneNumber;
-        this.address = address;
     }
 
+    @Builder
+    public User(int id, String name, String email, String picture,int userId) {
+        super();
+    }
 
 
     public User update(String name){
