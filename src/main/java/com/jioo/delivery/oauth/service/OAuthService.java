@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Optional;
@@ -56,73 +57,68 @@ public class OAuthService {
     public boolean checkEmailDuplicate(String email){
         return userRepository.existsByEmail(email);
     }
-    public String getKakaoUserInfo(String access_Token) {
+    public String getKakaoUserInfo(String access_Token) throws IOException {
 
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<>();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
-        try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
 
-            //    요청에 필요한 Header에 포함될 내용
-            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+        URL url = new URL(reqURL);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
 
-            int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
+        //    요청에 필요한 Header에 포함될 내용
+        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        int responseCode = conn.getResponseCode();
+        System.out.println("responseCode : " + responseCode);
 
-            String line = "";
-            String result = "";
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-            System.out.println("response body : " + result);
+        String line = "";
+        String result = "";
 
-            JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(result);
-
-            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-            JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-
-            int userId = element.getAsJsonObject().get("id").getAsInt();
-            String name = properties.getAsJsonObject().get("nickname").getAsString();
-            String email = kakao_account.getAsJsonObject().get("email").getAsString();
-            String picture = properties.getAsJsonObject().get("profile_image").getAsString();
-
-            String username = email;
-            String password = userId + access_Token;
-            //  DB 저장
-            User user = new User();
-            user.setUserId(userId);
-            user.setEmail(email);
-            user.setName(name);
-            user.setPicture(picture);
-
-            // 중복체크
-            if(!checkEmailDuplicate(email)){
-                userRepository.save(user);
-            }
-            String jwtToken = jwtManager.generateToken(email,name,picture);
-
-            JwtManager.TokenInfo tokenInfo = jwtManager.getTokenInfo(jwtToken);
-            System.out.println("Token Info : ");
-            System.out.println(tokenInfo);
-
-
-            return jwtToken;
-
-
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        while ((line = br.readLine()) != null) {
+            result += line;
         }
+        System.out.println("response body : " + result);
 
-        return "end" ;
+        JsonParser parser = new JsonParser();
+        JsonElement element = parser.parse(result);
+
+        JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+
+        int userId = element.getAsJsonObject().get("id").getAsInt();
+        String name = properties.getAsJsonObject().get("nickname").getAsString();
+        String email = kakao_account.getAsJsonObject().get("email").getAsString();
+        String picture = properties.getAsJsonObject().get("profile_image").getAsString();
+
+        String username = email;
+        String password = userId + access_Token;
+        //  DB 저장
+        User user = new User();
+        user.setUserId(userId);
+        user.setEmail(email);
+        user.setName(name);
+        user.setPicture(picture);
+
+        // 중복체크
+        if(!checkEmailDuplicate(email)){
+            userRepository.save(user);
+        }
+        String jwtToken = jwtManager.generateToken(email,name,picture);
+
+        JwtManager.TokenInfo tokenInfo = jwtManager.getTokenInfo(jwtToken);
+        System.out.println("Token Info : ");
+        System.out.println(tokenInfo);
+
+
+        return jwtToken;
+
+
+
+
     }
 
 
