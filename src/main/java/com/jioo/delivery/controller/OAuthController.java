@@ -7,6 +7,8 @@ import com.jioo.delivery.oauth.service.OAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 import java.util.HashMap;
 
 @RestController
@@ -19,7 +21,7 @@ public class OAuthController {
 
 
     @RequestMapping("/oauth2/code/kakao")
-    public String kakaoLogin(@RequestParam String code) {
+    public String kakaoLogin(@RequestParam String code) throws IOException {
         String accessToken = oAuthService.getKakaoAccessToken(code);
         String jwtToken = oAuthService.getKakaoUserInfo(accessToken);
         System.out.println("token : " + jwtToken);
