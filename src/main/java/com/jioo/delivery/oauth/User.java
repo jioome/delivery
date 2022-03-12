@@ -4,8 +4,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Data
 @Entity
@@ -46,6 +48,10 @@ public class User extends BaseTimeEntity {
 
     @Builder
     public User(int id, String name, String email, String picture,int userId) {
+        super();
+    }
+
+    public User(String subject, String s, Collection<? extends GrantedAuthority> authorities) {
         super();
     }
 

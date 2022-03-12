@@ -3,21 +3,17 @@ package com.jioo.delivery.oauth.service;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
-import com.jioo.delivery.controller.request.UserRequest;
 import com.jioo.delivery.oauth.*;
 import com.jioo.delivery.oauth.property.KakaoOAuthProviderProperties;
 import com.jioo.delivery.oauth.property.KakaoOAuthRegistrationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Optional;
 
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -38,7 +34,7 @@ public class OAuthService {
     private RestTemplate restTemplate;
 
     @Autowired
-    private JwtManager jwtManager;
+    private AuthTokenProvider authTokenProvider;
 
     public String getKakaoAccessToken(String code) {
         final String tokenUri = UriComponentsBuilder.fromHttpUrl(kakaoOAuthProviderProperties.getTokenUri())
@@ -57,7 +53,7 @@ public class OAuthService {
     public boolean checkEmailDuplicate(String email){
         return userRepository.existsByEmail(email);
     }
-    public String getKakaoUserInfo(String access_Token) throws IOException {
+    public AuthToken getKakaoUserInfo(String access_Token) throws IOException {
 
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<>();
@@ -103,18 +99,18 @@ public class OAuthService {
         user.setName(name);
         user.setPicture(picture);
 
+//      신규토큰 생성
+        AuthToken appToken = authTokenProvider.createUserAppToken(email);
         // 중복체크
         if(!checkEmailDuplicate(email)){
             userRepository.save(user);
         }
-        String jwtToken = jwtManager.generateToken(email,name,picture);
-
-        JwtManager.TokenInfo tokenInfo = jwtManager.getTokenInfo(jwtToken);
-        System.out.println("Token Info : ");
-        System.out.println(tokenInfo);
 
 
-        return jwtToken;
+
+        return AuthResponse.builder() // /auth/kakao와 /auth/google의 응답의 body로 AccessToken(AppToken)을 보내주기위해 builder 사용
+                .appToken(appToken.getToken())
+                .build();;
 
 
 

@@ -11,7 +11,7 @@ public class JwtConfig {
     private long tokenValidityInSeconds = 86400;
 
     @Bean
-    public JwtManager jwtManager() {
-        return new JwtManager(jwtSecret, tokenValidityInSeconds);
+    public AuthTokenProvider jwtManager() {
+        return new AuthTokenProvider(jwtSecret, tokenValidityInSeconds);
     }
 }
