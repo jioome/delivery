@@ -4,9 +4,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
 import com.jioo.delivery.oauth.*;
+import com.jioo.delivery.oauth.config.JwtConfig;
 import com.jioo.delivery.oauth.property.KakaoOAuthProviderProperties;
 import com.jioo.delivery.oauth.property.KakaoOAuthRegistrationProperties;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 

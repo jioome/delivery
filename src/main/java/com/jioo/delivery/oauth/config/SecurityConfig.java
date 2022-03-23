@@ -1,12 +1,14 @@
-package com.jioo.delivery.oauth;
+package com.jioo.delivery.oauth.config;
 
+import com.jioo.delivery.oauth.AuthTokenProvider;
+import com.jioo.delivery.oauth.Role;
+import com.jioo.delivery.oauth.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
