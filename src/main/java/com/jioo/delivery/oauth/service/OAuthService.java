@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.jioo.delivery.oauth.*;
 import com.jioo.delivery.oauth.property.KakaoOAuthProviderProperties;
 import com.jioo.delivery.oauth.property.KakaoOAuthRegistrationProperties;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.Key;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.springframework.web.client.RestTemplate;
@@ -35,6 +38,8 @@ public class OAuthService {
 
     @Autowired
     private AuthTokenProvider authTokenProvider;
+
+
 
     public String getKakaoAccessToken(String code) {
         final String tokenUri = UriComponentsBuilder.fromHttpUrl(kakaoOAuthProviderProperties.getTokenUri())
@@ -99,24 +104,23 @@ public class OAuthService {
         user.setName(name);
         user.setPicture(picture);
 
-//      신규토큰 생성
-        AuthToken appToken = authTokenProvider.createUserAppToken(email);
+
         // 중복체크
         if(!checkEmailDuplicate(email)){
             userRepository.save(user);
         }
+        Long expiredTime = 1000 * 60L * 60L * 2L; // 토큰 유효 시간 (2시간)
 
+        Date ext = new Date(); // 토큰 만료 시간
+        ext.setTime(ext.getTime() + expiredTime);
 
+        AuthToken authToken = new AuthTokenProvider(JwtConfig.getJwtSecret()).createToken(email,ext);
 
-        return AuthResponse.builder() // /auth/kakao와 /auth/google의 응답의 body로 AccessToken(AppToken)을 보내주기위해 builder 사용
-                .appToken(appToken.getToken())
-                .build();;
-
+        return authToken;
 
 
 
     }
-
 
 
 }
