@@ -1,16 +1,20 @@
 package com.jioo.delivery.oauth;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
 @EnableWebSecurity // Spring Security 설정 활성화
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    private final CustomOAuth2UserService customOAuth2UserService;
+    @Autowired
+    private AuthTokenProvider authTokenProvider;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -28,8 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .and()
                 .oauth2Login();
-                // 소셜로그인 성공 시 후속 조치를 진행할 UserService 인터페이스 구현체 등록
-//                .userService(customOAuth2UserService); // 리소스 서버에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능 명시
-
+        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+        ;
     }
+    @Bean
+    public JwtAuthenticationFilter tokenAuthenticationFilter() {
+        return new JwtAuthenticationFilter(authTokenProvider);
+    }
+
 }
