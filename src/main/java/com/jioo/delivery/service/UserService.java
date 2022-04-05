@@ -6,7 +6,8 @@ import com.jioo.delivery.oauth.User;
 import com.jioo.delivery.oauth.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +19,14 @@ public class UserService {
 
     private final List<User> users = new ArrayList<>();
 
-// create 없이 delete update read 만 있어도 됨
+    // create 없이 delete update read 만 있어도 됨
     public User create(UserRequest userParameter) {
-        final User user = new User( userParameter.getId(),userParameter.getName(),userParameter.getEmail(),userParameter.getPicture(),userParameter.getRole(),userParameter.getUserId());
+//        final User user = new User( userParameter.getId(),userParameter.getName(),userParameter.getEmail(),userParameter.getPicture(),userParameter.getRole(),userParameter.getUserId());
+        return null;
+    }
+
+    @Transactional
+    public User create(User user) {
         return userRepository.save(user);
     }
 
@@ -28,8 +34,8 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(NullPointerException::new);
     }
 
-//
-//    public void delete(Long id) {
-//        users.removeIf(restaurant -> Objects.equals(restaurant.getId(), id));
-//    }
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 }
