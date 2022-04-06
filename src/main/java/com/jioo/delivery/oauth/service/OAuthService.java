@@ -91,7 +91,6 @@ public class OAuthService {
         String email = kakao_account.getAsJsonObject().get("email").getAsString();
         String picture = properties.getAsJsonObject().get("profile_image").getAsString();
 
-        //  DB 저장
         User user = userService.findByEmail(email).orElse(null);
 
         // 가입인지, 업데이트인지

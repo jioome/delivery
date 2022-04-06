@@ -24,10 +24,6 @@ public class OAuthAttributes {
     }
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes){
-        //(new!) kakao
-//        if("kakao".equals(registrationId)){
-//            return ofKakao("id", attributes);
-//        }
         return ofKakao("id", attributes);
     }
 

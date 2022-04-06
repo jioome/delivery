@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@RequiredArgsConstructor // 편리하게 의존성 주입
 public enum Role {
     USER("ROLE_USER", "일반 사용자"),
     OWNER("ROLE_OWNER", "사장님"),
