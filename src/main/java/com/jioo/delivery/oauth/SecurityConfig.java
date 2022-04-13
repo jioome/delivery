@@ -23,10 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable() // h2-console 화면을 사용하기 위해 해당 옵션 disable
                 .and()
                 .authorizeRequests()// URL별 권한 권리
-                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**","/oauth2/**").permitAll() // 모든 요청 URL 중 다음을 포함하는 경우에 대해서는 인가를 모두 수락
-                .antMatchers("/api/v1/**").hasRole(Role.USER.name()) // /api/v1/** 은 USER권한만 접근 가능
-                .antMatchers("/admin/**").hasRole(Role.ADMIN.name()) //
-                .anyRequest().authenticated() // anyRequest : 설정된 값들 이외 나머지 URL 나타냄, authenticated : 인증된 사용자
+                .antMatchers("/**").permitAll()
+//                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**","/oauth2/**").permitAll() // 모든 요청 URL 중 다음을 포함하는 경우에 대해서는 인가를 모두 수락
+//                .antMatchers("/api/v1/**").hasRole(Role.USER.name()) // /api/v1/** 은 USER권한만 접근 가능
+//                .antMatchers("/admin/**").hasRole(Role.ADMIN.name()) //
+//                .anyRequest().authenticated() // anyRequest : 설정된 값들 이외 나머지 URL 나타냄, authenticated : 인증된 사용자
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
@@ -35,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         ;
     }
+
     @Bean
     public JwtAuthenticationFilter tokenAuthenticationFilter() {
         return new JwtAuthenticationFilter(authTokenProvider);
