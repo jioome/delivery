@@ -1,5 +1,6 @@
-package com.jioo.delivery.oauth;
+package com.jioo.delivery.oauth.config;
 
+import com.jioo.delivery.oauth.AuthTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

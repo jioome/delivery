@@ -1,7 +1,5 @@
 package com.jioo.delivery.controller.request;
 
-import javax.persistence.criteria.CriteriaBuilder;
-
 public class MenuRequest {
     private String name;
     private String description;

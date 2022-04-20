@@ -21,15 +21,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 public class AuthToken {
-    @Getter
     private Key key;
+
+    @Getter
     private String token;
 
     private static final String AUTHORITIES_KEY = "role";
@@ -48,7 +45,6 @@ public class AuthToken {
         this.key = key;
         this.token = token;
     }
-
 
     private String createAuthToken(String id, Date expiry) {
         return Jwts.builder()

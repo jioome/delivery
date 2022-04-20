@@ -18,13 +18,12 @@ public class OAuthController {
     private AuthTokenProvider jwtManager;
 
 
-
     @RequestMapping("/oauth2/code/kakao")
     public AuthToken kakaoLogin(@RequestParam String code) throws IOException {
         String accessToken = oAuthService.getKakaoAccessToken(code);
         System.out.println(accessToken);
         AuthToken jwtToken = oAuthService.getKakaoUserInfo(accessToken);
-        System.out.println("token : " + jwtToken);
+        System.out.println("token : " + jwtToken.getToken());
         return jwtToken;
     }
 
