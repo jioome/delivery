@@ -20,7 +20,7 @@ public class OrderService {
     }
 
     public Optional<Order> findByRestaurant(Long restaurantId) {
-        return orderRepository.findByRestaurant(restaurantId) ;
+        return orderRepository.findByRestaurantId(restaurantId) ;
     }
 
 }
