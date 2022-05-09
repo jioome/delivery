@@ -5,7 +5,6 @@ import com.jioo.delivery.oauth.Role;
 import com.jioo.delivery.oauth.User;
 import com.jioo.delivery.oauth.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    @Cacheable(cacheNames = "user", key = "#id")
+    @Cacheable(cacheNames = "usersss", key = "#id")
     public User read(Long id) {
         return userRepository.findById(id).orElseThrow(NullPointerException::new);
     }

@@ -1,5 +1,6 @@
 package com.jioo.delivery.oauth;
 
+import java.io.Serializable;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.util.Collection;
 @Entity
 @Getter
 @NoArgsConstructor
-public class User extends BaseTimeEntity {
+public class User extends BaseTimeEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
