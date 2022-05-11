@@ -11,12 +11,14 @@ public class Order {
 
     @Column(name = "menu_id")
     private Long menuId;
+
     @Column(name = "orderer_id")
     private Long ordererId;
+
+    @Column(name = "restaurant_id")
+    private Long restaurantId;
 
 //    @Column(name = "status")
 //    @Convert(converter = OrderType.Converter.class)
 //    private OrderType status;
-
-
 }

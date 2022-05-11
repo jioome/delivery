@@ -4,17 +4,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
 import com.jioo.delivery.oauth.*;
+import com.jioo.delivery.oauth.config.JwtConfig;
 import com.jioo.delivery.oauth.property.KakaoOAuthProviderProperties;
 import com.jioo.delivery.oauth.property.KakaoOAuthRegistrationProperties;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-
+import com.jioo.delivery.service.UserService;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -25,7 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class OAuthService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private KakaoOAuthRegistrationProperties kakaoOAuthRegistrationProperties;
@@ -38,7 +37,6 @@ public class OAuthService {
 
     @Autowired
     private AuthTokenProvider authTokenProvider;
-
 
 
     public String getKakaoAccessToken(String code) {
@@ -55,9 +53,7 @@ public class OAuthService {
 
         return oAuthToken.getAccessToken();
     }
-    public boolean checkEmailDuplicate(String email){
-        return userRepository.existsByEmail(email);
-    }
+
     public AuthToken getKakaoUserInfo(String access_Token) throws IOException {
 
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
@@ -95,31 +91,21 @@ public class OAuthService {
         String email = kakao_account.getAsJsonObject().get("email").getAsString();
         String picture = properties.getAsJsonObject().get("profile_image").getAsString();
 
-        String username = email;
-        String password = userId + access_Token;
         //  DB 저장
-        User user = new User();
-        user.setUserId(userId);
-        user.setEmail(email);
-        user.setName(name);
-        user.setPicture(picture);
+        User user = userService.findByEmail(email).orElse(null);
 
-
-        // 중복체크
-        if(!checkEmailDuplicate(email)){
-            userRepository.save(user);
+        // 가입인지, 업데이트인지
+        if (user == null) {
+            user = new User(null, name, email, userId, Role.USER, picture);
+            userService.create(user);
         }
-        Long expiredTime = 1000 * 60L * 60L * 2L; // 토큰 유효 시간 (2시간)
+
+        long expiredTime = 1000 * 60L * 60L * 2L; // 토큰 유효 시간 (2시간)
 
         Date ext = new Date(); // 토큰 만료 시간
         ext.setTime(ext.getTime() + expiredTime);
 
-        AuthToken authToken = new AuthTokenProvider(JwtConfig.getJwtSecret()).createToken(email,ext);
-
-        return authToken;
-
-
-
+        return new AuthTokenProvider(JwtConfig.getJwtSecret()).createToken(email, user.getRole().getKey(), ext);
     }
 
 

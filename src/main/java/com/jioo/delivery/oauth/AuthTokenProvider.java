@@ -42,7 +42,6 @@ public class AuthTokenProvider {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-
     public AuthToken createToken(String id, Date expiry) {
         return new AuthToken(id, expiry, key);
     }
@@ -56,9 +55,7 @@ public class AuthTokenProvider {
     }
 
     public Authentication getAuthentication(AuthToken authToken) {
-
         if (authToken.validate()) {
-
             Claims claims = authToken.getTokenClaims();
             Collection<? extends GrantedAuthority> authorities =
                     Arrays.stream(new String[]{claims.get(AUTHORITIES_KEY).toString()})
@@ -73,6 +70,4 @@ public class AuthTokenProvider {
             throw new RuntimeException();
         }
     }
-
-
 }

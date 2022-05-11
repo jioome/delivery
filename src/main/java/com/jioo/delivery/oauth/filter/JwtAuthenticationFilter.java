@@ -1,4 +1,4 @@
-package com.jioo.delivery.oauth;
+package com.jioo.delivery.oauth.filter;
 import com.jioo.delivery.oauth.util.HeaderUtil;
 import com.jioo.delivery.oauth.AuthTokenProvider;
 import com.jioo.delivery.oauth.AuthToken;
