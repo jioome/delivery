@@ -26,10 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()// 요청에 의한 보안검사 시작
                 .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/oauth2/**").permitAll() // 모든 요청 URL 중 다음을 포함하는 경우에 대해서는 인가를 모두 수락
-                .antMatchers("/api/**").hasAnyRole(Role.USER.name(),Role.ADMIN.name()) // /api/v1/** 은 USER권한만 접근 가능
-                .antMatchers("/owner/**").hasAnyRole(Role.OWNER.name(),Role.ADMIN.name())
-                .antMatchers("/admin/**").hasRole(Role.ADMIN.name())
-                .anyRequest().authenticated() // 어떤 요청에도 보안 검사함
+//                .antMatchers("/api/**").hasAnyRole(Role.USER.name(),Role.ADMIN.name()) // /api/v1/** 은 USER권한만 접근 가능
+//                .antMatchers("/owner/**").hasAnyRole(Role.OWNER.name(),Role.ADMIN.name())
+//                .antMatchers("/admin/**").hasRole(Role.ADMIN.name())
+//                .anyRequest().authenticated() // 어떤 요청에도 보안 검사함
+                .anyRequest().permitAll()
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")

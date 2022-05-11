@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.cache.annotation.Cacheable;
 
 @Service
 public class UserService {
@@ -21,8 +22,8 @@ public class UserService {
 
     // create 없이 delete update read 만 있어도 됨
     public User create(UserRequest userParameter) {
-//        final User user = new User( userParameter.getId(),userParameter.getName(),userParameter.getEmail(),userParameter.getPicture(),userParameter.getRole(),userParameter.getUserId());
-        return null;
+        final User user = new User(userParameter.getId(), userParameter.getName(), userParameter.getEmail(), userParameter.getPicture(), userParameter.getRole(), userParameter.getUserId());
+        return userRepository.save(user);
     }
 
     @Transactional
@@ -30,6 +31,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @Cacheable(cacheNames = "usersss", key = "#id")
     public User read(Long id) {
         return userRepository.findById(id).orElseThrow(NullPointerException::new);
     }
