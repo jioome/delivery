@@ -10,8 +10,8 @@ import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-
 @Service
 public class UserService {
 
@@ -31,7 +31,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    @Cacheable(cacheNames = "usersss", key = "#id")
+    @Cacheable(cacheNames = "user", key = "#id")
     public User read(Long id) {
         return userRepository.findById(id).orElseThrow(NullPointerException::new);
     }
@@ -39,5 +39,4 @@ public class UserService {
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
 }
