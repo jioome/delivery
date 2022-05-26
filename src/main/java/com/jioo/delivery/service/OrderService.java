@@ -15,7 +15,7 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    public Order read(Long id){
+    public Order read(Long id) {
         return orderRepository.findById(id).orElseThrow(NullPointerException::new);
     }
 
