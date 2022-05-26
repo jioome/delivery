@@ -34,9 +34,14 @@ public class RestaurantController {
     }
 
     @GetMapping("/restaurant")
-    public List<Restaurant> getAllRestaurants() {
-        return restaurantService.getAllRestaurants();
+    public List<RestaurantResponse> getAllRestaurants() {
+       return restaurantService.getAllRestaurants().stream()
+               .map(RestaurantResponse::fromEntity).collect(Collectors.toList());
+
     }
+//    public List<Restaurant> getAllRestaurants() {
+//        return restaurantService.getAllRestaurants();
+//    }
 
     @PutMapping("/restaurant/{id}")
     public RestaurantResponse updateRestaurant(@PathVariable Long id, @RequestBody RestaurantRequest restaurantRequest) throws Exception {

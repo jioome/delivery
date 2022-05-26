@@ -4,7 +4,7 @@ package com.jioo.delivery.controller.request;
 import com.jioo.delivery.oauth.Role;
 
 public class UserRequest {
-    private int id;
+    private Long id;
     private String name;
     private String email;
     private Role role;
@@ -17,7 +17,7 @@ public class UserRequest {
 
     }
 
-    public UserRequest(int id, String name, String email, Role role, String picture,int userId) {
+    public UserRequest(Long id, String name, String email, Role role, String picture, int userId) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -26,11 +26,11 @@ public class UserRequest {
         this.picture = picture;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

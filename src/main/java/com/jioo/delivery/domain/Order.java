@@ -18,6 +18,37 @@ public class Order {
     @Column(name = "restaurant_id")
     private Long restaurantId;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(Long menuId) {
+        this.menuId = menuId;
+    }
+
+    public Long getOrdererId() {
+        return ordererId;
+    }
+
+    public void setOrdererId(Long ordererId) {
+        this.ordererId = ordererId;
+    }
+
+    public Long getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
+    }
 //    @Column(name = "status")
 //    @Convert(converter = OrderType.Converter.class)
 //    private OrderType status;
