@@ -19,6 +19,7 @@ public class UserService {
     private UserRepository userRepository;
 
     private final List<User> users = new ArrayList<>();
+    private String id;
 
     // create 없이 delete update read 만 있어도 됨
     public User create(UserRequest userParameter) {
@@ -31,7 +32,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    @Cacheable(cacheNames = "user", key = "#id")
+    @Cacheable(cacheNames = "user", key = "#id") // key = #id?
     public User read(Long id) {
         return userRepository.findById(id).orElseThrow(NullPointerException::new);
     }
