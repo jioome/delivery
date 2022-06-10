@@ -58,6 +58,9 @@ public class User extends BaseTimeEntity implements Serializable{
         return this;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     public String getRoleKey() {
         return this.role.getKey();

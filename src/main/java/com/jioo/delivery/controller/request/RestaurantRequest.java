@@ -1,22 +1,24 @@
 package com.jioo.delivery.controller.request;
 //객체 만들기
 
+import com.jioo.delivery.oauth.User;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class RestaurantRequest {
     private String name;
     private String address;
     private String callNumber;
-    private Long ownerId;
-
     //디폴트 생성자를 명시적으로 만든다
     public RestaurantRequest() {
 
     }
 
-    public RestaurantRequest(String name, String address, String call_number, Long ownerId) {
+
+    public RestaurantRequest(String name, String address, String callNumber) {
         this.name = name;
         this.address = address;
-        this.callNumber = call_number;
-        this.ownerId = ownerId;
+        this.callNumber = callNumber;
+//        this.ownerId = ownerId;
     }
 
     public String getName() {
@@ -43,11 +45,4 @@ public class RestaurantRequest {
         this.callNumber = callNumber;
     }
 
-    public Long getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
-    }
 }

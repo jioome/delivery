@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -26,8 +27,9 @@ public class RestaurantService {
     // Repository
     private final List<Restaurant> restaurants = new ArrayList<>();
 
-    public Restaurant create(RestaurantRequest restaurantParameter) {
-        final User user = userService.read(restaurantParameter.getOwnerId());
+    @Transactional
+    public Restaurant create(RestaurantRequest restaurantParameter,long ownerId) {
+        final User user = userService.read(ownerId);
         final Restaurant restaurant = new Restaurant(restaurantParameter.getAddress(), restaurantParameter.getName(), restaurantParameter.getCallNumber(), user);
         return restaurantRepository.save(restaurant);
     }

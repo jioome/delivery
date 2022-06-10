@@ -19,8 +19,9 @@ public class UserController {
 
     @GetMapping("/user/me")
     public User userMe(@AuthenticationPrincipal UserDetails userDetails) {
-        System.out.println(userService.findByEmail(userDetails.getUsername()));
 //      // 반환용 객체 사용
+
+        System.out.println(userService.findByEmail(userDetails.getUsername()).orElseThrow(NullPointerException::new).getId());
         return userService.findByEmail(userDetails.getUsername()).orElseThrow(NullPointerException::new);
     }
 
