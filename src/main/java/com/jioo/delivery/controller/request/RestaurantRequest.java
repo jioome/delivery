@@ -13,10 +13,11 @@ public class RestaurantRequest {
 
     }
 
-    public RestaurantRequest(String name, String address, String call_number) {
+
+    public RestaurantRequest(String name, String address, String callNumber) {
         this.name = name;
         this.address = address;
-        this.callNumber = call_number;
+        this.callNumber = callNumber;
 //        this.ownerId = ownerId;
     }
 
