@@ -1,6 +1,7 @@
 # 🍟 Delivery-backend
 
 ## 1. 서비스 소개
+배달 서비스를 제공하는 Backend Project
 ## 2. 핵심 기능
 ## 3. 프로젝트 구조
 ## 4. 기술 스택
