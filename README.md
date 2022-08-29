@@ -9,14 +9,14 @@
 - 쿠폰 발급 (동시성 이슈 -> redis 이용)
 - 사장님 전용 음식점 등록 API
 
-## 4. 기술 스택
+## 3. 기술 스택
 - Spring Boot 2.6.1
 - Spring Data JPA
 - Spring Security
 - Mysql
 - Java 11
 - Redis 
-## 5. 업데이트 내역
+## 4. 업데이트 내역
 
 ## ✍️CONVENTION✍️
 
