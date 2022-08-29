@@ -8,7 +8,7 @@
 - 내 주문 단건 조회 API
 - 쿠폰 발급 (동시성 이슈 -> redis 이용)
 - 사장님 전용 음식점 등록 API
-## 3. 프로젝트 구조
+
 ## 4. 기술 스택
 - Spring Boot 2.6.1
 - Spring Data JPA
