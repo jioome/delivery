@@ -1,7 +1,7 @@
 # 🍟 Delivery-backend
 
 ## 1. 서비스 소개
-배달 서비스를 제공하는 Backend Service Project
+배달 서비스를 제공하는 Backend Toy Project
 ## 2. 핵심 기능
 - 관리자 권한용 API, 유저 정보 API 개발
 - 주문 API
@@ -16,7 +16,6 @@
 - Mysql
 - Java 11
 - Redis 
-## 4. 업데이트 내역
 
 ## ✍️CONVENTION✍️
 
